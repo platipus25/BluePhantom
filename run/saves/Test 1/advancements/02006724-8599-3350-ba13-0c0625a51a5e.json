@@ -1,0 +1,27 @@
+{
+  "minecraft:recipes/food/baked_potato": {
+    "criteria": {
+      "has_potato": "2020-08-21 22:29:27 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/baked_potato_from_smoking": {
+    "criteria": {
+      "has_potato": "2020-08-21 22:29:27 -0700"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/baked_potato_from_campfire_cooking": {
+    "criteria": {
+      "has_potato": "2020-08-21 22:29:27 -0700"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:mountains": "2020-08-21 22:29:27 -0700"
+    },
+    "done": false
+  },
+  "DataVersion": 2578
+}
