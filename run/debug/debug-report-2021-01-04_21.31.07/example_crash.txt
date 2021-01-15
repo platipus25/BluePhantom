@@ -1,0 +1,86 @@
+---- Minecraft Crash Report ----
+// Everything's going to plan. No, really, that was supposed to happen.
+
+Time: 1/4/21, 9:31 PM
+Description: Server dump
+
+java.lang.Exception: dummy
+	at net.minecraft.server.MinecraftServer.dumpExampleCrash(MinecraftServer.java:1539)
+	at net.minecraft.server.MinecraftServer.dump(MinecraftServer.java:1524)
+	at net.minecraft.server.command.DebugCommand.createDebugReport(DebugCommand.java:89)
+	at net.minecraft.server.command.DebugCommand.method_21617(DebugCommand.java:44)
+	at com.mojang.brigadier.CommandDispatcher.execute(CommandDispatcher.java:262)
+	at com.mojang.brigadier.CommandDispatcher.execute(CommandDispatcher.java:176)
+	at net.minecraft.server.command.CommandManager.execute(CommandManager.java:249)
+	at net.minecraft.server.network.ServerPlayNetworkHandler.executeCommand(ServerPlayNetworkHandler.java:1211)
+	at net.minecraft.server.network.ServerPlayNetworkHandler.method_31286(ServerPlayNetworkHandler.java:1198)
+	at net.minecraft.server.network.ServerPlayNetworkHandler.onGameMessage(ServerPlayNetworkHandler.java:1177)
+	at net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket.apply(ChatMessageC2SPacket.java:36)
+	at net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket.apply(ChatMessageC2SPacket.java:9)
+	at net.minecraft.network.NetworkThreadUtils.method_11072(NetworkThreadUtils.java:21)
+	at net.minecraft.server.ServerTask.run(ServerTask.java:18)
+	at net.minecraft.util.thread.ThreadExecutor.executeTask(ThreadExecutor.java:144)
+	at net.minecraft.util.thread.ReentrantThreadExecutor.executeTask(ReentrantThreadExecutor.java:23)
+	at net.minecraft.server.MinecraftServer.executeTask(MinecraftServer.java:761)
+	at net.minecraft.server.MinecraftServer.executeTask(MinecraftServer.java:155)
+	at net.minecraft.util.thread.ThreadExecutor.runTask(ThreadExecutor.java:118)
+	at net.minecraft.server.MinecraftServer.method_20415(MinecraftServer.java:743)
+	at net.minecraft.server.MinecraftServer.runTask(MinecraftServer.java:737)
+	at net.minecraft.util.thread.ThreadExecutor.runTasks(ThreadExecutor.java:103)
+	at net.minecraft.server.MinecraftServer.method_16208(MinecraftServer.java:721)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:674)
+	at net.minecraft.server.MinecraftServer.method_29739(MinecraftServer.java:257)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.16.4
+	Minecraft Version ID: 1.16.4
+	Operating System: Mac OS X (x86_64) version 10.16
+	Java Version: 14, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 838812656 bytes (799 MB) / 1460666368 bytes (1393 MB) up to 4294967296 bytes (4096 MB)
+	CPUs: 4
+	JVM Flags: 0 total; 
+	Fabric Mods: 
+		bluephantom: Blue Phantom Pig 1.0.0
+		fabric: Fabric API 0.28.4+1.16
+		fabric-api-base: Fabric API Base 0.2.0+ab87788d3a
+		fabric-biome-api-v1: Fabric Biome API (v1) 3.1.0+2e23b97c3a
+		fabric-command-api-v1: Fabric Command API (v1) 1.0.9+6a2618f53a
+		fabric-commands-v0: Fabric Commands (v0) 0.2.0+6a2618f53a
+		fabric-containers-v0: Fabric Containers (v0) 0.1.9+a03e98793a
+		fabric-content-registries-v0: Fabric Content Registries (v0) 0.2.0+e77439c73a
+		fabric-crash-report-info-v1: Fabric Crash Report Info (v1) 0.1.2+b7f9825d3a
+		fabric-dimensions-v1: fabric-dimensions-v1 2.0.1+9a6c75813a
+		fabric-events-interaction-v0: Fabric Events Interaction (v0) 0.4.1+6a2618f53a
+		fabric-events-lifecycle-v0: Fabric Events Lifecycle (v0) 0.2.0+6a2618f53a
+		fabric-game-rule-api-v1: Fabric Game Rule API (v1) 1.0.3+a4467d2a3a
+		fabric-item-api-v1: Fabric Item API (v1) 1.2.0+6a2618f53a
+		fabric-item-groups-v0: Fabric Item Groups (v0) 0.2.1+6a2618f53a
+		fabric-lifecycle-events-v1: Fabric Lifecycle Events (v1) 1.2.0+ffb68a873a
+		fabric-loot-tables-v1: Fabric Loot Tables (v1) 1.0.1+6a2618f53a
+		fabric-mining-levels-v0: Fabric Mining Levels (v0) 0.1.2+6a2618f53a
+		fabric-networking-api-v1: Fabric Networking API (v1) 1.0.0+4358fbc63a
+		fabric-networking-blockentity-v0: Fabric Networking Block Entity (v0) 0.2.7+a03e98793a
+		fabric-networking-v0: Fabric Networking (v0) 0.3.1+2a4333d33a
+		fabric-object-builder-api-v1: Fabric Object Builder API (v1) 1.9.2+6a2618f53a
+		fabric-object-builders-v0: Fabric Object Builders (v0) 0.7.1+6a2618f53a
+		fabric-particles-v1: fabric-particles-v1 0.2.2+6a2618f53a
+		fabric-registry-sync-v0: Fabric Registry Sync (v0) 0.7.3+be155ae23a
+		fabric-rendering-data-attachment-v1: Fabric Rendering Data Attachment (v1) 0.1.4+6a2618f53a
+		fabric-resource-loader-v0: Fabric Resource Loader (v0) 0.4.0+552549d53a
+		fabric-screen-handler-api-v1: Fabric Screen Handler API (v1) 1.1.0+6a2618f53a
+		fabric-structure-api-v1: Fabric Structure API (v1) 1.1.1+f1d8af063a
+		fabric-tag-extensions-v0: Fabric Tag Extensions (v0) 1.1.0+e77439c73a
+		fabric-tool-attribute-api-v1: Fabric Tool Attribute API (v1) 1.2.5+6a2618f53a
+		fabricloader: Fabric Loader 0.10.8
+		minecraft: Minecraft 1.16.4
+	Player Count: 1 / 20; [ServerPlayerEntity['platipus25'/1022, l='ServerLevel[world]', x=-296.49, y=64.00, z=-150.56]]
+	Data Packs: vanilla, Fabric Mods
+	Is Modded: Definitely; Server brand changed to 'fabric'
+	Type: Dedicated Server (map_server.txt)
