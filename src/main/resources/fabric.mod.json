@@ -6,7 +6,7 @@
   "name": "Blue Phantom Pig",
   "description": "Blue pig.",
   "authors": [
-    "Me!"
+    "platipus25"
   ],
   "contact": {
     "homepage": "https://platipus25.net/",
@@ -28,7 +28,8 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": "1.16.x"
+    "minecraft": "1.16.x",
+    "fabric-biome-api-v1": "*"
   },
   "suggests": {
     "flamingo": "*"

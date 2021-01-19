@@ -45,6 +45,8 @@ public class BluePhantom implements ModInitializer {
          */
         FabricDefaultAttributeRegistry.register(spectral_phantom, SpectralPhantomEntity.createSpectralPhantomAttributes());
 
+        BiomeModifications.create(new Identifier("bluephantom:biome_mods")).add(ModificationPhase.ADDITIONS, BiomeSelectors.spawnsOneOf(EntityType.PIG), biomeModificationContext -> biomeModificationContext.getSpawnSettings().addSpawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(spectral_phantom, 8, 4, 10)));
+
         LOGGER.debug("The pig has landed.");
     }
 }
