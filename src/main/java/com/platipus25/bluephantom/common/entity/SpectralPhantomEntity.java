@@ -3,41 +3,29 @@ package com.platipus25.bluephantom.common.entity;
 import com.platipus25.bluephantom.BluePhantom;
 import com.platipus25.bluephantom.common.entity.ai.goal.AvoidOffensiveItemsGoal;
 import com.platipus25.bluephantom.common.entity.ai.goal.LeapAtFoodGoal;
-//import com.platipus25.bluephantom.common.entity.ai.goal.TemptEatingGoal;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.entity.passive.StriderEntity;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FoodComponent;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-//import net.minecraft.util.math.SectionPos;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class SpectralPhantomEntity extends PigEntity {
@@ -48,7 +36,6 @@ public class SpectralPhantomEntity extends PigEntity {
         FoodComponent foodComponent = itemStack.getItem().getFoodComponent();
         return foodComponent != null && foodComponent.isMeat();
     });
-
 
     public SpectralPhantomEntity(EntityType<? extends SpectralPhantomEntity> entityIn, World world) {
         super(entityIn, world);
@@ -64,13 +51,13 @@ public class SpectralPhantomEntity extends PigEntity {
         this.goalSelector.add(3, new AvoidOffensiveItemsGoal(this, 16f, 1.2D, 2D, OFFENSIVE_ITEMS));
         this.goalSelector.add(7, new NuzzlePlayerGoal(this, 0.75D, false));
         this.goalSelector.add(5, new WanderAroundGoal(this, 1.0D));
+        //this.goalSelector.add(5, new FollowParentGoal(this, 1.1D));
+        //this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(5, new FleeEntityGoal<>(this, SpectralPhantomEntity.class, 6.0F, 1.0D, 1.0D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        //this.targetSelector.add(2, new OwnerHurtTargetGoal(this));
 
         this.targetSelector.add(4, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, (entity) -> !this.canBeSeenByEntity(entity) && !this.hasPlayerRider()));
-        super.initGoals();
     }
 
     public static DefaultAttributeContainer.Builder createSpectralPhantomAttributes() {
@@ -85,7 +72,7 @@ public class SpectralPhantomEntity extends PigEntity {
         Vec3d posDiffVec = this.getPos().subtract(entityIn.getPos()).normalize(); // vector pointing from entityIn to this
 
         double diff = lookVec.dotProduct(posDiffVec);
-        //LOGGER.info("Look diff: "+diff)
+        LOGGER.debug(entityIn + " looking at " + this + " this much " + diff);
 
         return diff > 0;
     }
@@ -98,6 +85,17 @@ public class SpectralPhantomEntity extends PigEntity {
     @Override
     public PigEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
         return (SpectralPhantomEntity) getType().create(serverWorld);
+    }
+
+    @Override
+    public boolean canBeControlledByRider() {
+        Entity entity = this.getPrimaryPassenger();
+        if (!(entity instanceof PlayerEntity)) {
+            return false;
+        } else {
+            PlayerEntity playerEntity = (PlayerEntity)entity;
+            return playerEntity.getMainHandStack().getItem() == Items.CARROT_ON_A_STICK || playerEntity.getOffHandStack().getItem() == Items.CARROT_ON_A_STICK;
+        }
     }
 
     private static class NuzzlePlayerGoal extends MeleeAttackGoal {
@@ -119,11 +117,12 @@ public class SpectralPhantomEntity extends PigEntity {
 
         protected void attack(LivingEntity target, double squaredDistance) {
             double d = this.getSquaredMaxAttackDistance(target);
-            if (squaredDistance <= d /*&& this.field_24667 <= 0*/) {
+            if (squaredDistance <= d) {
                 this.method_28346();
                 this.mob.swingHand(Hand.MAIN_HAND);
                 this.mob.tryAttack(target);
                 mob.setTarget(null);
+                LOGGER.debug(this + " nuzzled " + target);
                 //enemy.setMotion(new Vector3d(0, enemy.jumpMovementFactor * 1.2, 0));
             }
         }

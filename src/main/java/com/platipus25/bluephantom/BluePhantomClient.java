@@ -12,12 +12,10 @@ public class BluePhantomClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         /*
-         * Registers our Cube Entity's renderer, which provides a model and texture for the entity.
+         * Registers our Pig Entity's renderer, which provides a model and texture for the entity.
          *
          * Entity Renderers can also manipulate the model before it renders based on entity context (EndermanEntityRenderer#render).
          */
-        EntityRendererRegistry.INSTANCE.register(BluePhantom.spectral_phantom, (dispatcher, context) -> {
-            return new SpectralPhantomEntityRenderer(dispatcher);
-        });
+        EntityRendererRegistry.INSTANCE.register(BluePhantom.spectral_phantom, (dispatcher, context) -> new SpectralPhantomEntityRenderer(dispatcher));
     }
 }
